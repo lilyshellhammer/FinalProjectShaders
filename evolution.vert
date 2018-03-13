@@ -8,10 +8,7 @@ out float vLightIntensity;
 out vec2 vST;
 out vec3 vXYZ;
 
-out vec3 Ns, Ls, Es;
-
 uniform float Timer;
-vec3 lightPos = vec3(0., 0., 0.);
 
 void
 main( )
@@ -25,6 +22,7 @@ main( )
 		float y = vXYZ.y;
 		float z = vXYZ.z;
 	
+		//GET TIME!!!!!
 	
 	//------------------------------------
 	/* TEXTURE*/
@@ -49,18 +47,17 @@ main( )
 			vXYZ *= (1.+ mountainVal);
 		}
 
-	vec4 ECposition = gl_ModelViewMatrix * vec4(vXYZ, 1.);
+
 	//------------------------------------
-	/* LIGHTING */
+	/* FAKE LIGHTING */
 	//------------------------------------
-	
-	Ns = normalize( gl_NormalMatrix * gl_Normal );
-	Ls = lightPos - ECposition.xyz;	
-	mat4 camera = inverse(gl_ModelViewMatrix);
-	Es = camera[3].xyz;
-	
-	
-	
+		vec3 tnorm = normalize( gl_NormalMatrix * gl_Normal );
+		vec3 LightPos = vec3( 5., 10., 10. );
+		vec3 ECposition = vec3( gl_ModelViewMatrix * gl_Vertex );
+			vLightIntensity  = abs( dot( normalize(LightPos - ECposition), tnorm ) );
+		if( vLightIntensity < 0.2 )
+			vLightIntensity = 0.2;
+		
 	
 	//------------------------------------
 	/* SET FINAL VALUES */
