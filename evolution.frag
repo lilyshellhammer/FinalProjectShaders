@@ -1,6 +1,6 @@
 #version 330 compatibility
 
-uniform vec4 uOceanColor;
+
 uniform vec4 uMountainColor;
 uniform float uKa, uKd;
 
@@ -38,6 +38,7 @@ RotateNormal( float angx, float angy, vec3 n )
 void
 main( )
 {
+	vec4 uOceanColor = vec4(0.1, 1.0, 0.5, 1.0); 
 	vec3 newColor = uOceanColor.rbg;
 	vec3 blueColor = vec3(0., 0., 1.);
 	
