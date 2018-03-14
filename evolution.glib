@@ -6,7 +6,6 @@ LookAt 0 0 2  0 0 0  0 1 0
 Vertex   evolution.vert
 Fragment evolution.frag
 Program  Evolution				\
-	uGrowth <true>				\
 	uNoiseFreq <1. 2. 4.>		\
 	uNoiseAmp <0. 1. 1.>			
 

@@ -3,7 +3,6 @@
 uniform float uNoiseFreq;
 uniform sampler2D Noise2;
 uniform float uNoiseAmp;
-uniform bool uGrowth;
 
 out float vLightIntensity;
 out vec2 vST;
@@ -29,13 +28,9 @@ main( )
 		vec4 nvx = texture( Noise2, uNoiseFreq *vST );
 		float mountainVal = nvx.r + nvx.g + nvx.b + nvx.a  -  2.; //value from 0-1
 		mountainVal *= uNoiseAmp;
-	//	if(uGrowth == 1)
-			mountainVal *= sin(Timer/10. * 2. * 3.14159);
-		//else
-		//	mountainVal = 0;
-
+		mountainVal *= sin(Timer/10. * 2. * 3.14159);
 		
-		if(mountainVal <= 0) {
+		if(mountainVal <= 0) { //if we are above sea level, distort, else keep flat
 			vXYZ = vXYZ;
 		}
 		else{
