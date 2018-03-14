@@ -3,15 +3,12 @@
 Perspective 90
 LookAt 0 0 2  0 0 0  0 1 0
 
-
 Vertex   evolution.vert
 Fragment evolution.frag
 Program  Evolution				\
-	uNoiseFreq <1. 2. 4.>			\
-	uNoiseAmp <0. 1. 1.>			\
-	uMountainColor {0.1 0.7 0.5 1.}     \
-	uKa <0. 0.1 1.0>                        \
-	uKd <0. 0.6 1.0>                        \
-	uOceanColor {0.1 1.0 0.5 1.0}  			              
+	uGrowth <true>				\
+	uNoiseFreq <1. 2. 4.>		\
+	uNoiseAmp <0. 1. 1.>			
 
 Sphere 1 50 50
+

@@ -3,27 +3,25 @@
 uniform float uNoiseFreq;
 uniform sampler2D Noise2;
 uniform float uNoiseAmp;
+uniform bool uGrowth;
 
 out float vLightIntensity;
 out vec2 vST;
 out vec3 vXYZ;
 
 uniform float Timer;
+out float Time;
 
 void
 main( )
 { 
 	//------------------------------------
-	/* GET S, T, X, Y, Z , TIME*/
+	/* GET S, T, X, Y, Z , TIME, SEND OUT NOISE VARS*/
 	//------------------------------------
 		vST = gl_MultiTexCoord0.st;
 		vXYZ = gl_Vertex.xyz;
-		float x = vXYZ.x;
-		float y = vXYZ.y;
-		float z = vXYZ.z;
-	
-		//GET TIME!!!!!
-	
+		Time = Timer;
+
 	//------------------------------------
 	/* TEXTURE*/
 	//------------------------------------
@@ -31,13 +29,10 @@ main( )
 		vec4 nvx = texture( Noise2, uNoiseFreq *vST );
 		float mountainVal = nvx.r + nvx.g + nvx.b + nvx.a  -  2.; //value from 0-1
 		mountainVal *= uNoiseAmp;
-		mountainVal *= sin(Timer/10. * 2. * 3.14159);
-		
-		/***Add texture values for Oceans (small changes), mult by magnitue of time****/
-		vec4 nvy = texture( Noise2, uNoiseFreq*vec2(vST.s,vST.t+0.5) );
-		float oceanVal = nvy.r + nvy.g + nvy.b + nvy.a  -  2.;	//value from 0-1
-		oceanVal *= uNoiseAmp * 0.1;
-		oceanVal *= sin(Timer/10.* 2. * 3.14159);
+	//	if(uGrowth == 1)
+			mountainVal *= sin(Timer/10. * 2. * 3.14159);
+		//else
+		//	mountainVal = 0;
 
 		
 		if(mountainVal <= 0) {
